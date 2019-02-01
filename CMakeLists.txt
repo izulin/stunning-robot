@@ -1,0 +1,8 @@
+set( CMAKE_CXX_COMPILER clang++ )
+add_definitions( -std=c++11 -stdlib=libc++ )
+cmake_minimum_required(VERSION 2.8)
+project( DisplayImage )
+find_package( OpenCV REQUIRED )
+include_directories( ${OpenCV_INCLUDE_DIRS} )
+add_executable( DisplayImage DisplayImage.cpp )
+target_link_libraries( DisplayImage ${OpenCV_LIBS} )
