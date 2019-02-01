@@ -52,7 +52,7 @@ int main(int argc, char** argv )
     for(int x=0;x<nRows;x++)
         for(int y=0;y<nCols;y++)
         {
-            int bestscore = 1000000000; //+infty with this distance function
+            int bestscore = -1000000000; //-infty with this distance function
             int bestind = -1; //image that minimizes the score
             for(int iter_i = 0; iter_i < numOfImages; iter_i++)
             {
@@ -63,7 +63,7 @@ int main(int argc, char** argv )
                     Vec3b& point_j = input[iter_j].at<Vec3b>(x,y);
                     score += dist(point_i, point_j);
                 }
-                if(score < bestscore)
+                if(score > bestscore)
                 {
                     bestscore = score;
                     bestind = iter_i;
@@ -71,7 +71,7 @@ int main(int argc, char** argv )
             }
             assert(bestind != -1);
             out.at<Vec3b>(x,y) = input[bestind].at<Vec3b>(x,y);
-            gray.at<uchar>(x,y) = (bestind*256)/numOfImages;
+            gray.at<uchar>(x,y) = ((numOfImages-bestind-1)*256)/numOfImages;
         }
 
     imwrite( name_output, out);
